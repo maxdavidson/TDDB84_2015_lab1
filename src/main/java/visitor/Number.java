@@ -1,7 +1,8 @@
 package visitor;
 
-public class Number extends SimpleExpression {
-    private int value;
+public final class Number extends SimpleExpression {
+
+    private final int value;
 
     public Number(int value) {
         super();
@@ -14,12 +15,11 @@ public class Number extends SimpleExpression {
 
     @Override
     public String toString() {
-        return new Integer(getValue()).toString();
+        return Integer.toString(value);
     }
 
     @Override
     public void accept(Visitor v) {
         v.visit(this);
     }
-
 }

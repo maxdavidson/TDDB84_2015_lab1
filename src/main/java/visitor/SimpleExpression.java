@@ -1,6 +1,5 @@
 package visitor;
 
 
-public abstract class SimpleExpression extends AbstractExpression {
-
+public abstract class SimpleExpression implements Expression {
 }

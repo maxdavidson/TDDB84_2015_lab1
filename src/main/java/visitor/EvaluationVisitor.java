@@ -1,6 +1,7 @@
 package visitor;
 
-public class EvaluationVisitor extends Visitor {
+
+public final class EvaluationVisitor implements Visitor {
 
     private int result;
 
@@ -20,13 +21,23 @@ public class EvaluationVisitor extends Visitor {
 
     @Override
     public void visit(Sum exp) {
-        // result = ??
+        EvaluationVisitor v1 = new EvaluationVisitor();
+        EvaluationVisitor v2 = new EvaluationVisitor();
+
+        exp.left.accept(v1);
+        exp.right.accept(v2);
+
+        result = v1.getResult() + v2.getResult();
     }
 
     @Override
     public void visit(Minus exp) {
-        // result = ??
+        EvaluationVisitor v1 = new EvaluationVisitor();
+        EvaluationVisitor v2 = new EvaluationVisitor();
+
+        exp.left.accept(v1);
+        exp.right.accept(v2);
+
+        result = v1.getResult() - v2.getResult();
     }
-
-
 }

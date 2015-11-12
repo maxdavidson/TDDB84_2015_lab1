@@ -1,8 +1,9 @@
 package visitor;
 
-public class Variable extends SimpleExpression {
-    private String name;
-    private int value;
+public final class Variable extends SimpleExpression {
+
+    private final String name;
+    private final int value;
 
     public Variable(String name, int value) {
         super();
@@ -27,6 +28,4 @@ public class Variable extends SimpleExpression {
     public void accept(Visitor v) {
         v.visit(this);
     }
-
-
 }

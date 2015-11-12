@@ -1,21 +1,13 @@
 package visitor;
 
-public class Minus extends CompoundExpression {
-    public Minus(AbstractExpression op1, AbstractExpression op2) {
-        this.leftOperand = op1;
-        this.rightOperand = op2;
-    }
+public final class Minus extends CompoundExpression {
 
-    @Override
-    protected String operator() {
-        return "-";
+    public Minus(Expression left, Expression right) {
+        super(left, right, "-");
     }
 
     @Override
     public void accept(Visitor v) {
-        v.visit(leftOperand);
-        v.visit(rightOperand);
         v.visit(this);
     }
-
 }

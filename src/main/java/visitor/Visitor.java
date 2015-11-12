@@ -1,22 +1,33 @@
 package visitor;
 
-import java.text.MessageFormat;
 
-public abstract class Visitor {
-    public abstract void visit(Number exp);
+public interface Visitor {
 
-    public abstract void visit(Variable exp);
-
-    public abstract void visit(Sum exp);
-
-    public abstract void visit(Minus exp);
-
-    public void visit(CompoundExpression compoundExpression) {
-        System.err.print(MessageFormat.format("Wrong type of expression: {0}", compoundExpression));
+    default void visit(Number exp) {
+        visit((SimpleExpression) exp);
     }
 
-    public void visit(AbstractExpression expr) {
-        System.err.print(MessageFormat.format("Wrong type of expression: {0}", expr));
+    default void visit(Variable exp) {
+        visit((SimpleExpression) exp);
     }
 
+    default void visit(Sum exp) {
+        visit((CompoundExpression) exp);
+    }
+
+    default void visit(Minus exp) {
+        visit((CompoundExpression) exp);
+    }
+
+    default void visit(SimpleExpression exp) {
+        visit((Expression) exp);
+    }
+
+    default void visit(CompoundExpression exp) {
+        visit((Expression) exp);
+    }
+
+    default void visit(Expression exp) {
+        // Do nothing by default
+    }
 }

@@ -1,22 +1,13 @@
 package visitor;
 
-public class Sum extends CompoundExpression {
-    public Sum(AbstractExpression op1, AbstractExpression op2) {
-        this.leftOperand = op1;
-        this.rightOperand = op2;
-    }
+public final class Sum extends CompoundExpression {
 
-    @Override
-    protected String operator() {
-        return "+";
+    public Sum(Expression left, Expression right) {
+        super(left, right, "+");
     }
 
     @Override
     public void accept(Visitor v) {
-        leftOperand.accept(v);
-        rightOperand.accept(v);
         v.visit(this);
     }
-
-
 }

@@ -2,22 +2,25 @@ package visitor;
 
 import java.text.MessageFormat;
 
-public abstract class CompoundExpression extends AbstractExpression {
 
-    protected AbstractExpression leftOperand;
-    protected AbstractExpression rightOperand;
+public abstract class CompoundExpression implements Expression {
 
-    protected abstract String operator();
+    public final Expression left;
+    public final Expression right;
+    public final String operator;
+
+    protected CompoundExpression(Expression left, Expression right, String operator) {
+        this.left = left;
+        this.right = right;
+        this.operator = operator;
+    }
 
     @Override
     public String toString() {
-        String formatString = "{0} " + operator() + " {1}";
-        if (leftOperand instanceof CompoundExpression
-                || rightOperand instanceof CompoundExpression) {
-            formatString = "({0}) " + operator() + " ({1})";
-        }
-        return MessageFormat.format(formatString, leftOperand, rightOperand);
+        return MessageFormat.format(
+                ((left instanceof CompoundExpression) ? "({0})" : "{0}")
+                + " {1} " +
+                ((right instanceof CompoundExpression) ? "({2})" : "{2}"),
+                left, operator, right);
     }
-
-
 }
