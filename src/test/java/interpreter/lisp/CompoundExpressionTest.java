@@ -1,5 +1,8 @@
 package interpreter.lisp;
 
+import interpreter.lisp.expressions.Expression;
+import interpreter.lisp.expressions.semantic.FunctionExpression;
+import interpreter.lisp.expressions.syntactic.Num;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -15,15 +18,17 @@ public class CompoundExpressionTest {
 
     @Test
     public void evaluateFac() {
-        Expr definition = Reader.read(fac).evaluate(Context.getTopLevelContext());
-        assertThat(definition, is(instanceOf(CompoundExpression.class)));
+        Expression definition = Parser.read(fac).evaluate(Context.GLOBAL);
+
+        assertThat(definition, is(instanceOf(FunctionExpression.class)));
     }
 
     @Test
     public void evaluateApplyFac() {
-        Reader.read(fac).evaluate(Context.getTopLevelContext());
-        Expr value = Reader.read(applyFac).evaluate(Context.getTopLevelContext());
+        Parser.read(fac).evaluate(Context.GLOBAL);
+
+        Expression value = Parser.read(applyFac).evaluate(Context.GLOBAL);
+
         assertEquals(new Num(120), value);
     }
-
 }

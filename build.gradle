@@ -6,19 +6,19 @@ version = '0.0.1'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Visitor_Interpreter',
-                   'Implementation-Version': version
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.+'
+}
+
+task repl(dependsOn: 'classes', type: JavaExec) {
+    main = 'interpreter.lisp.REPL'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
 }
 
 test {
